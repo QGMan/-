@@ -1,10 +1,10 @@
 <template>
   <div class="page">
-    <div class="h5videodiv" v-for="(item,index) in h5videodivs" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)">
+    <div class="h5videodiv" v-for="(item,index) in videoList" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)">
       <video class="h5video" id="h5sVideo1" autoplay ref="video">
 
       </video>
-      <img class="playpause" src="../../../../static/imgs//media_play_pause_resume.png">
+      <img class="playpause" src="../../../../static/imgs//media_play_pause_resume.png" @click="playpause(index)">
       <i class="el-icon-rank fullscreen" @click="allscreen(index)">全屏</i>
            <div class="ContentControl" ref="ContentControl">
         <div class="control">
@@ -30,15 +30,30 @@
 
 <script>
   export default {
-    data() {
-   
+    data() { 
       return {
-           h5videodivs: [
-          {}, {},{},{}
-        ]
+           videoList: []
       };
     },
+    created(){
+      this.getList();
+    },
     methods: {
+          // 按钮控制播放暂停
+    playpause(index) {
+      var video = this.$refs.video[index];
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    },
+    //获取视频数据，并添加到videoList里
+    getList() {
+      this.$http.get("http://192.168.0.10:8080/api/v1/GetSrc").then(res => {
+        this.videoList = res.data.src;
+      });
+    },
       enter(index) {
         this.$refs.video[index].classList.add("vdactive");
         this.$refs.ContentControl[index].style.opacity = 1;

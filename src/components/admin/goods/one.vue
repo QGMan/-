@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="h5videodiv" v-for="(item,index) in videoList1" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)">
+    <div class="h5videodiv"  v-for="(item,index) in videoList1" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)">
 
       <video class="h5video" src="../../../../static/video/h5ssample.mp4" ref="video">
       <!-- <video class="h5video" src="http://rtsp://192.168.0.103/15" ref="video"> -->
@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       currentPage: 0, //当前页码
-      videoList1: []
+      videoList1: [],
+      // isplay: true //控制播放暂停时是否显示
     };
   },
   created() {
@@ -52,15 +53,17 @@ export default {
       this.$refs.video[index].classList.remove("vdactive");
       this.$refs.ContentControl[index].style.opacity = 0;
     },
+
     // 按钮控制播放暂停
-    playpause(index){
-      var video=this.$refs.video[index]
-      if(video.paused){
+    playpause(index) {
+      var video = this.$refs.video[index];
+      if (video.paused) {
         video.play();
-      }else{
+      } else {
         video.pause();
       }
-    }, 
+    },
+    changeIsplay() {},
     getList() {
       this.$http.get("http://192.168.0.10:8080/api/v1/GetSrc").then(res => {
         this.videoList1 = res.data.src;
