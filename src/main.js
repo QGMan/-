@@ -14,7 +14,7 @@ Vue.use(ElementUi);
 // 引入jquery
 import $ from 'jquery'
 
-// import login from './components/admin/account/login.vue';
+import login from './components/account/login.vue';
 import layout from './components/admin/layout.vue';
 import goodslist from './components/admin/goods/goodslist.vue';
 import goodsadd from './components/admin/goods/goodsadd.vue';
@@ -30,11 +30,11 @@ var router = new VueRouter({
             path: '/',
             redirect: '/admin/one'
         },
-        // {
-        //     name: 'login', //登录页面
-        //     path: '/login',
-        //     component: login
-        // }, 
+        {
+            name: 'login', //登录页面
+            path: '/account/login',
+            component: login
+        }, 
         {
             name: 'layout', //主页面
             path: '/admin',

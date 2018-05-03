@@ -38,7 +38,7 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>待添功能</el-dropdown-item>
                 <el-dropdown-item>修改密码</el-dropdown-item>
-                <router-link to="/login"><el-dropdown-item>注销登录</el-dropdown-item></router-link>
+                <router-link to="/account/login"><el-dropdown-item>注销登录</el-dropdown-item></router-link>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>

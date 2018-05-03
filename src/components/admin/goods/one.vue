@@ -1,12 +1,12 @@
 <template>
   <div class="page">
-    <div class="h5videodiv"  v-for="(item,index) in videoList1" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)">
+    <div class="h5videodiv"  v-for="(item,index) in currentvideo" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)" @click="playpause(index)">
 
-      <video class="h5video" src="../../../../static/video/h5ssample.mp4" ref="video">
+      <video class="h5video" src="../../../../static/video/h5ssample.mp4" ref="video" @click="changeIsactive">
       <!-- <video class="h5video" src="http://rtsp://192.168.0.103/15" ref="video"> -->
 
       </video>
-      <img class="playpause" src="../../../../static/imgs//media_play_pause_resume.png" @click="playpause(index)">
+      <img class="playpause" v-show="isactive" src="../../../../static/imgs//media_play_pause_resume.png">
       <i class="el-icon-rank fullscreen" @click="allscreen(index)">全屏</i>
       <div class="ContentControl" ref="ContentControl">
         <div class="control">
@@ -38,7 +38,7 @@ export default {
     return {
       currentPage: 0, //当前页码
       videoList1: [],
-      // isplay: true //控制播放暂停时是否显示
+      isactive: true //控制播放暂停时是否显示
     };
   },
   created() {
@@ -60,8 +60,11 @@ export default {
       if (video.paused) {
         video.play();
       } else {
-        video.pause();
+        video.pause();        
       }
+    },
+    changeIsactive(){
+      this.isactive=!this.isactive
     },
     changeIsplay() {},
     getList() {
@@ -82,14 +85,15 @@ export default {
       }
     }
   },
-  watch: {}
+  
+  watch: {},
   // 计算
-  // computed: {
-  //     videoList(){
-  //       let initV=this.currentPage*2;
-  //       return this.videoList.splice(initV,2)
-  //     }
-  // }
+  computed: {
+      currentvideo(){
+        let initV=this.currentPage;
+        return this.videoList1.splice(initV++,1)
+      }
+  }
 };
 </script>
 

@@ -99,10 +99,7 @@ export default {
         console.log(response);
       });
     },
-    //全选
-    checkAll() {
-      alert("还未实现该功能");
-    },
+
 
     //获取接口数据
     // getList() {
@@ -111,9 +108,7 @@ export default {
         
     //   });
     // },
-    getrow(rows) {
-      // console.log(rows)
-    },
+ 
     /* 选择显示条数 */
     sizeChange(sizeIndex) {
       this.loading = true;
@@ -127,23 +122,6 @@ export default {
       // this.getList();
     },
     del() {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
     }
   }
 };

@@ -1,11 +1,11 @@
 <template>
   <div class="page">
-    <div class="h5videodiv" v-for="(item,index) in videoList" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)">
+    <div class="h5videodiv" v-for="(item,index) in currentvideo" :key="index" @mouseenter="enter(index)" @mouseleave="leave(index)"  @click="playpause(index)">
 
-      <video class="h5video" src="" autoplay ref="video">
+      <video class="h5video" src="../../../../static/video/h5ssample.mp4" ref="video" @click="changeIsactive" >
 
       </video>
-      <img class="playpause" src="../../../../static/imgs//media_play_pause_resume.png" @click="playpause(index)">
+      <img class="playpause" v-show="isactive" src="../../../../static/imgs//media_play_pause_resume.png" @click="playpause(index)">
       <i class="el-icon-rank fullscreen" @click="allscreen(index)">全屏</i>
       <div class="ContentControl" ref="ContentControl">
         <div class="control">
@@ -37,8 +37,9 @@ export default {
     //  找到这里说明你摊上大事了，这个bug我只能说非常难解决，不过呢我这里有一个好消息和一个坏消息：
     //  坏消息是bug真的很难，好消息是我已经解决了
     return {
-      videoList: [],//视频源列表
-      isplaypause:true
+      videoList: [], //视频源列表
+      currentPage: 0, //当前页
+      isactive: true //控制播放暂停时是否显示
     };
   },
   computed: {
@@ -57,8 +58,11 @@ export default {
       if (video.paused) {
         video.play();
       } else {
-        video.pause();   
+        video.pause();
       }
+    },
+    changeIsactive() {
+      this.isactive = !this.isactive;
     },
     //获取视频数据，并添加到videoList里
     getList() {
@@ -88,7 +92,14 @@ export default {
       }
     }
   },
-  components: {}
+  components: {},
+  // 计算
+  computed: {
+    currentvideo() {
+      let initV = this.currentPage * 2;
+      return this.videoList.splice(initV, 2);
+    }
+  }
 };
 </script>
 
